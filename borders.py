@@ -1,5 +1,8 @@
 import os
 
+__ALL__ = ["frame"]  # Line to be remove if in task T26 of HyperionDev.
+
+
 def main():
     menu_list = ["",
     "\t\t   This is border.py",
@@ -40,8 +43,6 @@ def frame(menu_list):
             line = line.replace("\t", "    ")
         
         new_list.append(line)
-
-    #max_width = max(max_width, title_width)
 
     menu_list = new_list
 
