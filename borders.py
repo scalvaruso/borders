@@ -123,6 +123,6 @@ def frame(menu_list, colour=0, spacing=1, window="print"):
     else:
         print(display_menu)
 
+
 if __name__ == "__main__":
     main()
-    
