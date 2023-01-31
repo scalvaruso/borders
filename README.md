@@ -1,5 +1,5 @@
 # Borders
-#### Description:
+## Description:
 This function create a frame around the content of a list.
 Any item of the list is considered a new line.
 Can be use to get an input.
@@ -16,8 +16,9 @@ default value = 'print'
 Returns  
 Print a frame around the output or the input prompt
 
-#### Usage:
-To use this module, please copy the file borders.py in the same folder where you will be running your main file.
-Import the module as follows:
-
-'''from borders import frame'''
+## Usage:
+To use this module, please copy the file borders.py in the same folder where you will be running your main file.  
+Add the following line in your code to import the module:
+```
+from borders import frame
+```
