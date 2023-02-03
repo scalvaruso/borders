@@ -1,6 +1,6 @@
 # Borders
 ## Description:
-This module creates a frame around the content of a list.  
+This module creates a frame when printing a list of strings.  
 It considers any item of the list as a new line.  
 The function frame can be also used in place of 'input()'.
 
