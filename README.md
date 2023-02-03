@@ -53,10 +53,16 @@ Output:
 Specifying a different value for the parameter ```spacing```, you can increase or decrease the space between text and frame.  
 
 With value ```2``` it will leave two blank lines at the top and the bottom, and 8 blank spaces before and after the text.
+<details>
+<summary></summary>
+
+>1        from borders import frame   
+>2  
+>3        output = ["Hello,", "World!"]
+
+</details>
+
 ```
-1    from borders import frame
-2
-3    output = ["Hello,", "World!"]
 4    frame(output, spacing=2)
 ```
 Output:
@@ -71,10 +77,16 @@ Output:
 ╚══════════════════════╝
 ```
 With value ```0``` it will create the frame around the text with no spaces.
+<details>
+<summary></summary>
+
+>1        from borders import frame   
+>2  
+>3        output = ["Hello,", "World!"]
+
+</details>
+
 ```
-1    from borders import frame
-2
-3    output = ["Hello,", "World!"]
 4    frame(output, spacing=0)
 ```
 Output:
@@ -87,11 +99,17 @@ Output:
 #### 'min_width' and 'max_width'
 
 The parameter ```min_width``` set the minimum width inside the frame.  
-With value of ```30``` the output frame will have a wider space on the left.
+For example with value of ```30``` the output frame will have a wider space on the left.
+<details>
+<summary></summary>
+
+>1        from borders import frame   
+>2  
+>3        output = ["Hello,", "World!"]
+
+</details>
+
 ```
-1    from borders import frame
-2
-3    output = ["Hello,", "World!"]
 4    frame(output, min_width=30)
 ```
 Output:
@@ -106,9 +124,15 @@ Output:
 The parameter ```max_width``` set the max length of text on a line.  
 Let's see what happens to the following string:
 ```"There are only 10 kinds of people in this world: Those who know binary and Those who don’t."```, with value ```100```
+<details>
+<summary></summary>
+
+>1        from borders import frame   
+>2  
+
+</details>
+
 ```
-1    from borders import frame
-2
 3    output = ["There are only 10 kinds of people in this world: Those who know binary and Those who don’t."]
 4    frame(output, max_width=100)
 ```
@@ -121,6 +145,14 @@ Output:
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 With value ```50```  
+<details>
+<summary></summary>
+
+>1        from borders import frame   
+>2  
+>3        output = ["There are only 10 kinds of people in this world: Those who know binary and Those who don’t."]
+</details>
+
 ```
 4    frame(output, max_width=50)
 ```
@@ -134,6 +166,14 @@ Output:
 ╚════════════════════════════════════════════════════════╝
 ```
 With value ```25```  
+<details>
+<summary></summary>
+
+>1        from borders import frame   
+>2  
+>3        output = ["There are only 10 kinds of people in this world: Those who know binary and Those who don’t."]
+</details>
+
 ```
 4    frame(output, max_width=25)
 ```
@@ -150,14 +190,21 @@ Output:
 ```
 ### Alternative use: 'input'
 You can use the function ```frame()``` in place of ```input()``` to create a frame around the prompt and get the input from the user.
+<details>
+<summary></summary>
+
+>1        from borders import frame   
+>2  
+
+</details>
+
 ```
-1    from borders import frame
-2
 3    num1 = int(frame(["Please,", "enter a number"], window="input"))
 4    num2 = num1 * 2
 5    output = [f"The double of {num1}",f"is {num2}"]
 6    frame(output)
 ```
+Output:
 ```
 ╔═══════════════════════╗
 ║                       ║
