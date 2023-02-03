@@ -39,7 +39,7 @@ def frame(menu_list, colour=0, spacing=1, min_width=8, max_width=70, window="pri
             default value = 'print'
 
     Returns:
-        Print a frame around the output or the input prompt
+        Print a frame around the output or the input prompt.
     """
 
     ansi_colours = [0,30,31,32,33,34,35,36,37,90,91,92,93,94,95,96,97,
