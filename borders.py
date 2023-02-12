@@ -1,13 +1,12 @@
-
 import os
 
 def main():
     menu_list = ["",
-    "\t\t   This is border.py",
+    "\t\t  This is border.py",
     "",
     "This is an original module created by",
     "",
-    "\t\t   Simone Calvaruso",
+    "\t\t  Simone Calvaruso",
     "",
     ]
 
@@ -21,7 +20,7 @@ def main():
     frame(menu_list, colour=col)
 
 
-def frame(menu_list, colour=0, spacing=1, min_width=8, max_width=70, window="print"):
+def frame(menu_list, colour=0, text_colour=None, spacing=1, min_width=8, max_width=70, window="print"):
     """
     This function create a frame around the content of a list.
     Any item of the list is considered a new line.
@@ -41,6 +40,9 @@ def frame(menu_list, colour=0, spacing=1, min_width=8, max_width=70, window="pri
     Returns:
         Print a frame around the output or the input prompt.
     """
+
+    if text_colour == None:
+        text_colour = colour
 
     ansi_colours = [0,30,31,32,33,34,35,36,37,90,91,92,93,94,95,96,97,
     40,41,42,43,44,45,46,47,100,101,102,103,104,105,106,107]
@@ -83,7 +85,7 @@ def frame(menu_list, colour=0, spacing=1, min_width=8, max_width=70, window="pri
     if max_width < 5:
         max_width = 5
 
-    # Split the lines if they are longer than 70 characters.
+    # Split the lines if they are longer than the max length characters.
     for item in menu_list:
         line = ""
         words = item.split(" ")
@@ -93,43 +95,42 @@ def frame(menu_list, colour=0, spacing=1, min_width=8, max_width=70, window="pri
             
             if len(word) >= max_width:
                 line = word[:max_width]
-                new_list.append(line.rstrip(" "))
+                new_list.append((line.rstrip(" "), text_colour))
                 line = word[max_width:] + space
             elif len(line+word) < (max_width+1):
                 line += word + space
             else:
-                new_list.append(line.rstrip(" "))
+                new_list.append((line.rstrip(" "), text_colour))
                 line = word + space
 
-        new_list.append(line.rstrip(" "))
+        new_list.append((line.rstrip(" "), text_colour))
 
     menu_list = new_list
 
     # Create the frame.
-    max_width = max([(len(i.rstrip(" "))) for i in menu_list])
+    max_width = max([(len(i[0].rstrip(" "))) for i in menu_list])
 
     if max_width > (menu_width-(border_space*2)):
         menu_width = max_width + (border_space*2)
 
     or_line = "═" * menu_width
     filling = " " * menu_width
-    display_menu = f"\033[{colour}m" + "╔" + or_line + "╗\n"
+    display_menu = f"\033[{colour}m" + "╔" + or_line + "╗\033[0m\n"
 
     for _ in range(spacing):
-        display_menu += "║" + filling + "║\n"
+        display_menu += f"\033[{colour}m" + "║" + filling + "║\033[0m\n"
 
     for item in menu_list:
-        out_item = side_space + item + side_space
-        item_width = len(out_item)
+        item_width = len(item[0]+(side_space*2))
         filling = " " * (menu_width - item_width)
-        display_menu += "║" + out_item + filling + "║\n"
+        display_menu += f"\033[{colour}m" + "║" + side_space + "\033[0m" + f"\033[{item[1]}m" + item[0] + "\033[0m" + f"\033[{colour}m" + side_space + filling + "║\033[0m\n"
 
     filling = " " * menu_width
 
     for _ in range(spacing):
-        display_menu += "║" + filling + "║\n"
+        display_menu += f"\033[{colour}m" + "║" + filling + "║\033[0m\n"
 
-    display_menu += "╚" + or_line + "╝\033[0m\n"
+    display_menu += f"\033[{colour}m" + "╚" + or_line + "╝\033[0m\n"
 
     # Change the behaviour of the function from 'print' to 'input'.
     if window=="in" or window=="input":
