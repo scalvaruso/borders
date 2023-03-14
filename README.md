@@ -60,7 +60,7 @@ frame(output)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders01.png)
+![borders01](https://github.com/scalvaruso/borders/tree/main/png/borders01.png)
 
 We can set a colour for the text (e.g. 34 for Blue) and one for the frame (e.g. 31 for Red)
 
@@ -73,7 +73,7 @@ frame(output, colour="34", frame_colour="31")
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders02.png)
+![borders02](https://github.com/scalvaruso/borders/tree/main/png/borders02.png)
 
 Using a ```Tuple``` we can set different colours for each line, we can set blue as general colour for the text, then we can set one line yellow, one green, and highlight one in white
 
@@ -93,7 +93,7 @@ frame(output, colour="34", frame_colour="31")
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders02b.png)
+![borders02b](https://github.com/scalvaruso/borders/tree/main/png/borders02b.png)
 
 #### 'spacing'
 
@@ -110,7 +110,7 @@ frame(output, spacing=2)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders03.png)
+![borders03](https://github.com/scalvaruso/borders/tree/main/png/borders03.png)
 
 With value ```0``` it will create the frame around the text with no spaces.
 
@@ -123,7 +123,7 @@ frame(output, spacing=0)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders04.png)
+![borders04](https://github.com/scalvaruso/borders/tree/main/png/borders04.png)
 
 #### 'min_width' and 'max_width'
 
@@ -139,7 +139,7 @@ frame(output, min_width=30)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders05.png)  
+![borders05](https://github.com/scalvaruso/borders/tree/main/png/borders05.png)  
 
 The parameter ```max_width``` set the max length of text on a line.  
 Let's see what happens to the following string:
@@ -154,7 +154,7 @@ frame(output, max_width=100)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders06.png)
+![borders06](https://github.com/scalvaruso/borders/tree/main/png/borders06.png)
 
 With value ```50```  
 
@@ -167,7 +167,7 @@ frame(output, max_width=50)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders07.png)
+![borders07](https://github.com/scalvaruso/borders/tree/main/png/borders07.png)
 
 With value ```25```  
 
@@ -180,7 +180,7 @@ frame(output, max_width=25)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders08.png)
+![borders08](https://github.com/scalvaruso/borders/tree/main/png/borders08.png)
 
 ### Alternative use: 'input'
 
@@ -197,4 +197,4 @@ frame(output)
 
 Output:
 
-![alt text](https://github.com/scalvaruso/borders/blob/main/png/borders09.png)
+![borders09](https://github.com/scalvaruso/borders/tree/main/png/borders09.png)
