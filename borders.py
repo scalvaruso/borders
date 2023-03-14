@@ -1,33 +1,41 @@
 import os
 
 def main():
-    menu_list = ["",
-    "\t\t  This is border.py",
-    "",
-    "This is an original module created by",
-    "",
-    "\t\t  Simone Calvaruso",
-    "",
-    ]
 
     col = frame(["Enter a colour"], window="in")
     os.system("clear")
+    
     try:
         col = int(col)
     except:
         pass
 
+    menu_list = [
+        ("\t\t  This is border.py","Bright Cyan"),
+        "",
+        ("This is an original module created by","Bright Cyan"),
+        "",
+        ("\t\t   Simon Calvaruso","Bright Cyan"),
+        ]
+
     frame(menu_list, colour=col)
 
 
-def frame(menu_list, colour=0, text_colour=None, spacing=1, min_width=8, max_width=70, window="print"):
+def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_background=None, spacing=1, min_width=8, max_width=70, window="print"):
     """
     This function create a frame around the content of a list.
     Any item of the list is considered a new line.
+    Items allowed are strings or tuples containing a string and one or two numeric values for the colour of the same line.
     
     Parameters:
-        colour: allows to change the colour of the window.
-            default value = 'white'
+        colour: allows to change the colour of the text.
+            default value = 37
+        text_background: allows to change the background colour of the text.
+            default value = 0 
+        frame_colour: allows to change the colour of the frame.
+            default value = None, if not specified get the same colour value of the text.
+        frame_background: allows to change the background colour of the frame.
+            default value = None, if not specified get the same value of text_background.
         spacing: allows to increase or decrease the space between the frame and the text.
             default value = 1
         min_width: allows to set the minimum width inside the frame.
@@ -40,35 +48,20 @@ def frame(menu_list, colour=0, text_colour=None, spacing=1, min_width=8, max_wid
     Returns:
         Print a frame around the output or the input prompt.
     """
-
-    if text_colour == None:
-        text_colour = colour
-
-    ansi_colours = [0,30,31,32,33,34,35,36,37,90,91,92,93,94,95,96,97,
-    40,41,42,43,44,45,46,47,100,101,102,103,104,105,106,107]
-
-    # Set the colour of the frame.
-    if type(colour) == str:
-        colour = colour.lower()
+    # Check validity of the colours.
+        
+    colour = _valid_colour(colour)
+    text_background = _valid_colour(text_background, "back")
     
-    if colour in ansi_colours:
-        pass
-    elif colour == "red":
-        colour = "91"
-    elif colour == "green":
-        colour = "92"
-    elif colour == "yellow":
-        colour = "93"
-    elif colour == "cyan":
-        colour = "96"
-    elif colour == "blue":
-        colour = "94"
-    elif colour == "pink":
-        colour = "95"
+    if frame_colour:
+        frame_colour = _valid_colour(frame_colour)
     else:
-        colour = "0"
+        frame_colour = colour
 
-    new_list = []
+    if frame_background:
+        frame_background = _valid_colour(frame_background, "back")
+    else:
+        frame_background = text_background
 
     # Check the menu spacing and width.
     if spacing < 1:
@@ -85,27 +78,8 @@ def frame(menu_list, colour=0, text_colour=None, spacing=1, min_width=8, max_wid
     if max_width < 5:
         max_width = 5
 
-    # Split the lines if they are longer than the max length characters.
-    for item in menu_list:
-        line = ""
-        words = item.split(" ")
-        space = " "
-        for word in words:
-            word = word.replace("\t", "    ")
-            
-            if len(word) >= max_width:
-                line = word[:max_width]
-                new_list.append((line.rstrip(" "), text_colour))
-                line = word[max_width:] + space
-            elif len(line+word) < (max_width+1):
-                line += word + space
-            else:
-                new_list.append((line.rstrip(" "), text_colour))
-                line = word + space
-
-        new_list.append((line.rstrip(" "), text_colour))
-
-    menu_list = new_list
+    # Check the lenght of every line and split them if too long.
+    menu_list = _split_line(menu_list, max_width, colour, text_background)
 
     # Create the frame.
     max_width = max([(len(i[0].rstrip(" "))) for i in menu_list])
@@ -115,28 +89,110 @@ def frame(menu_list, colour=0, text_colour=None, spacing=1, min_width=8, max_wid
 
     or_line = "═" * menu_width
     filling = " " * menu_width
-    display_menu = f"\033[{colour}m" + "╔" + or_line + "╗\033[0m\n"
+    display_menu = f"\033[{frame_background};{frame_colour}m" + "╔" + or_line + "╗" + "\033[0m\n"
 
     for _ in range(spacing):
-        display_menu += f"\033[{colour}m" + "║" + filling + "║\033[0m\n"
+        display_menu += f"\033[{frame_background};{frame_colour}m" + "║" + f"\033[{text_background}m" + filling + f"\033[0m" + f"\033[{frame_background};{frame_colour}m" + "║" +"\033[0m\n"
 
     for item in menu_list:
         item_width = len(item[0]+(side_space*2))
         filling = " " * (menu_width - item_width)
-        display_menu += f"\033[{colour}m" + "║" + side_space + "\033[0m" + f"\033[{item[1]}m" + item[0] + "\033[0m" + f"\033[{colour}m" + side_space + filling + "║\033[0m\n"
+        display_menu += f"\033[{frame_background};{frame_colour}m" + "║" + f"\033[{item[2]}m" + side_space + f"\033[{item[1]}m" + item[0] + side_space + filling + f"\033[0m" + f"\033[{frame_background};{frame_colour}m" + "║" +"\033[0m\n"
 
     filling = " " * menu_width
 
     for _ in range(spacing):
-        display_menu += f"\033[{colour}m" + "║" + filling + "║\033[0m\n"
+        display_menu += f"\033[{frame_background};{frame_colour}m" + "║" + f"\033[{text_background}m" + filling + f"\033[0m" + f"\033[{frame_background};{frame_colour}m" + "║" + "\033[0m\n"
 
-    display_menu += f"\033[{colour}m" + "╚" + or_line + "╝\033[0m\n"
+    display_menu += f"\033[{frame_background};{frame_colour}m" + "╚" + or_line + "╝" + "\033[0m\n"
 
     # Change the behaviour of the function from 'print' to 'input'.
     if window=="in" or window=="input":
         return input(display_menu)
     else:
         print(display_menu)
+
+
+# This function check the validity of the colour value.
+def _valid_colour(col, body="body"):
+    
+    if body == "back":
+        ansi_colours = {
+    "Black": 40, "Red": 41, "Green": 42, "Yellow": 43, "Blue": 44, "Magenta": 45, "Cyan": 46, "White": 47,
+    "Bright Black": 100, "Bright Red": 101, "Bright Green": 102, "Bright Yellow": 103, "Bright Blue": 104, "Bright Magenta": 105, "Bright Cyan": 106, "Bright White": 107,
+    "Reset": 0,
+    }
+    else:
+        ansi_colours = {
+    "Black": 30, "Red": 31, "Green": 32, "Yellow": 33, "Blue": 34, "Magenta": 35, "Cyan": 36, "White": 37,
+    "Bright Black": 90, "Bright Red": 91, "Bright Green": 92, "Bright Yellow": 93, "Bright Blue": 94, "Bright Magenta": 95, "Bright Cyan": 96, "Bright White": 97,
+    "Reset": 0,
+    }
+   
+    try:
+        col = int(col)
+    except:
+        col = col.title().replace("Light","Bright")
+    
+    if col in ansi_colours.values():
+        out_col = col
+    elif col in ansi_colours.keys():
+        out_col = ansi_colours[col]
+    else:
+        out_col = "0"
+
+    return out_col
+
+
+# This function return a list of every line to print with its colour attributes.
+def _split_line(menu_list, max_width, t_colour, t_background):
+    new_list = []
+    
+    for item in menu_list:
+        line = ""
+
+        # Check if item is a tuple.
+        if isinstance(item, tuple):
+            """
+            If True:
+            item[0] is the string
+            item[1] is the colour of the text
+            item[2] is the backgroud colour of the text.
+            """
+            words = item[0].split(" ")
+            if item[1] != "":
+                text_colour = _valid_colour(item[1])
+            else:
+                text_colour = t_colour    
+            try:
+                text_background = _valid_colour(item[2], "back")
+            except:
+                text_background = t_background
+                pass
+        else:
+            words = item.split(" ")
+            text_colour = t_colour
+            text_background = t_background
+
+        space = " "
+
+        # Split the lines if they are longer than the max length characters.
+        for word in words:
+            word = word.replace("\t", "    ")
+            
+            if len(word) >= max_width:
+                line = word[:max_width]
+                new_list.append((line.rstrip(" "), text_colour, text_background))
+                line = word[max_width:] + space
+            elif len(line+word) < (max_width+1):
+                line += word + space
+            else:
+                new_list.append((line.rstrip(" "), text_colour, text_background))
+                line = word + space
+
+        new_list.append((line.rstrip(" "), text_colour, text_background))
+
+    return new_list
 
 
 if __name__ == "__main__":
