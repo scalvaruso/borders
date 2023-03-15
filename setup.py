@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 HERE = pathlib.Path(__file__).parent
 
-VERSION = '1.0.0'
+VERSION = '1.0.1b'
 PACKAGE_NAME = 'borders'
 AUTHOR = 'Simon Calvaruso'
 AUTHOR_EMAIL = 'calvaruso.simone@gmail.com'
@@ -15,7 +15,6 @@ LONG_DESCRIPTION = (HERE / "README.md").read_text()
 LONG_DESC_TYPE = "text/markdown"
 
 INSTALL_REQUIRES = [
-      'os',
 ]
 
 setup(name=PACKAGE_NAME,
