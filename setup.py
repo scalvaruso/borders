@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 HERE = pathlib.Path(__file__).parent
 
-VERSION = '1.0.1b'
+VERSION = '1.0.2'
 PACKAGE_NAME = 'borders'
 AUTHOR = 'Simon Calvaruso'
 AUTHOR_EMAIL = 'calvaruso.simone@gmail.com'
