@@ -1,4 +1,7 @@
+import colorama
 import os
+
+colorama.just_fix_windows_console()
 
 def main():
 
