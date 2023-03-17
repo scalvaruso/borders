@@ -1,5 +1,9 @@
 import os
 
+import colorama
+
+colorama.just_fix_windows_console()
+
 def main():
 
     col = frame(["Enter a colour"], window="in")
