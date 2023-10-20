@@ -1,8 +1,10 @@
 import os
 
+
 def main():
 
-    col = frame(["Enter a colour"], window="in")
+    # col = frame(["Enter a colour"], window="in")
+    col = "White"
     os.system("clear")
     
     try:
@@ -11,14 +13,14 @@ def main():
         pass
 
     menu_list = [
-        ("\t\t  This is border.py","Bright Cyan"),
-        "",
-        ("This is an original module created by","Bright Cyan"),
-        "",
-        ("\t\t   Simon Calvaruso","Bright Cyan"),
+        ("\t\t  This is border.py","Bright White","Bright Black"),
+        ("","","Cyan"),
+        ("This is an original module created by","Bright Blue","White"),
+        ("","","Magenta"),
+        ("\t\t   Simon Calvaruso","Bright Red","Bright Yellow"),
         ]
 
-    frame(menu_list, colour=col)
+    frame(menu_list, text_background="Green", frame_colour="Yellow")
 
 
 def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_background=None, spacing=1, min_width=8, max_width=70, window="print"):
