@@ -1,15 +1,15 @@
 # Borders
 
+[<img src="https://img.shields.io/badge/borders-py-blue?style=flat&logo=python&labelColor=white&logoWidth=20.svg/"></a>](https://github.com/scalvaruso/borders/)
 [![PyPIv](https://img.shields.io/pypi/v/borders)](https://pypi.org/project/borders/)
 [![Downloads](https://static.pepy.tech/badge/borders)](https://pepy.tech/project/borders)
-[![PyPI - License](https://img.shields.io/pypi/l/borders)](https://github.com/scalvaruso/borders/blob/main/LICENSE.md)
-[<img src="https://img.shields.io/badge/borders-Py-blue?style=flat&logo=python&labelColor=white&logoWidth=20.svg/"></a>](https://github.com/scalvaruso/borders/)
-<!--- To move before [Downloads]
-[![PyPI status](https://img.shields.io/pypi/status/borders)](https://pypi.org/project/borders/)
-[![Documentation Status](https://readthedocs.org/projects/borders/badge/?version=latest)](https://borders.readthedocs.io/en/latest/?badge=latest)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/borders)](https://pypi.org/project/borders/)
--->
 
+[![PyPI - License](https://img.shields.io/pypi/l/borders)](https://github.com/scalvaruso/borders/blob/main/LICENSE.md)
+[![PyPI status](https://img.shields.io/pypi/status/borders)](https://pypi.org/project/borders/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/borders)](https://pypi.org/project/borders/)
+<!---
+[![Documentation Status](https://readthedocs.org/projects/borders/badge/?version=latest)](https://borders.readthedocs.io/en/latest/?badge=latest)
+-->
 
 ## Description
 

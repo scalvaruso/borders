@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "borders"
-version = "1.0.3"
+version = "1.0.4"
 description = "A module to creates a frame when printing a list of strings. The function can be configured to act as 'input()'."
 authors = ["simon calvaruso <calvaruso.simone@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 colorama = "0.4.6"
 
 
