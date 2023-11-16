@@ -22,3 +22,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/scalvaruso/borders"
 Repository = "https://github.com/scalvaruso/borders"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
