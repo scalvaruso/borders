@@ -1,16 +1,24 @@
-[tool.poetry]
+[project]
 name = "borders"
-version = "1.0.4"
-description = "A module to creates a frame when printing a list of strings. The function can be configured to act as 'input()'."
-authors = ["simon calvaruso <calvaruso.simone@gmail.com>"]
-license = "MIT"
+version = "1.1.0"
+dependencies = ["textlinebreaker","colorama"]
+requires-python = ">=3.9"
+authors = [
+    { name="scalvaruso", email="calvaruso.simone@gmail.com" },
+]
+description = "A module to create a frame when printing a list of strings, with control on the alignment of the text and frame. In addition can be configured to act as 'input()'."
 readme = "README.md"
+license = {text = "MIT License"}
+keywords = ["alignment", "break", "center", "centre", "color", "format", "frame", "highlight", "input", "left", "line", "output", "right", "split", "text"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-colorama = "0.4.6"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[project.urls]
+Homepage = "https://github.com/scalvaruso/borders"
+Repository = "https://github.com/scalvaruso/borders"
