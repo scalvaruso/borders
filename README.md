@@ -13,7 +13,7 @@
 
 ## Description
 
-**Borders 1.1.0** is an updated version of[```borders```](https://pypi.org/project/borders/). It enhances the functionality of creating frames around text output, adding new features and improving existing ones.
+**Borders 1.1.2** is an updated version of[```borders```](https://pypi.org/project/borders/). It enhances the functionality of creating frames around text output, adding new features and improving existing ones.
 Borders creates a frame around the content of a list, where any item of the list is considered a new line.  
 
 ## Features
@@ -69,7 +69,7 @@ This script relies on the Python standard library and requires ```textlinebreake
 * Import the package in your program
 
 ```python
-  from textlinebreaker import split_line
+  from borders import frame
 ```
 
 ## Usage
