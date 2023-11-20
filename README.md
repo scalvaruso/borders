@@ -13,15 +13,14 @@
 
 ## Description
 
-**Borders 1.1.2** is an updated version of[```borders```](https://pypi.org/project/borders/). It enhances the functionality of creating frames around text output, adding new features and improving existing ones.
-Borders creates a frame around the content of a list, where any item of the list is considered a new line.  
+**Borders** creates a frame around the content of a list, where any item of the list is considered a new line.  
 
 ## Features
 
 * **Colour Support:** Expanded colour options now accept ANSI colour codes `0, 30 to 37, and 90 to 97` for setting text and frame colours.
 * **Input Functionality:** Provides an option to use the `frame()` function in place of `input()` to create a framed prompt for user input.
 
-### New Features
+## Latest Version 1.1.2
 
 * **Enhanced Spacing Control:** Added alignment control for the frame and the text within the frame.
 * **Improved Width Customization:** Better control over minimum and maximum width of the frame and text lines.
