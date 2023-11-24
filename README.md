@@ -13,7 +13,7 @@
 
 ## Description
 
-**Borders** creates a frame around the content of a list, where any item of the list is considered a new line.
+[![PyPI - Version](https://img.shields.io/pypi/v/borders?label=Borders&labelColor=white&color=white&style=flat-square)](#borders) is an updated version of **borders**: it enhances the functionality of creating frames around text output adding new features, and improving existing ones. Borders creates a frame around the content of a list, where any item of the list is considered a new line.
 
 ## Features
 
@@ -92,36 +92,36 @@ The text to be printed can be a mixed list of:
 
 ### Parameters
 
-[colour](#text-and-frame-colours): set the text colour.  
-$\hspace{1cm}$ allowed values: ANSI colour codes `0`, `30 to 37`, and `90 to 97`  
-$\hspace{1cm}$ default value = `37`.  
-[text_background](#text-and-frame-colours): set the background colour of the text.  
-$\hspace{1cm}$ allowed values: ANSI colour codes `0`, `40 to 47`, and `100 to 107`  
-$\hspace{1cm}$ default value = `0`.  
-[frame_colour](#text-and-frame-colours): set the frame colour.  
-$\hspace{1cm}$ allowed values: ANSI colour codes `0`, `30 to 37`, and `90 to 97`  
-$\hspace{1cm}$ default value = `37`.  
-[frame_background](#text-and-frame-colours): set the background colour of the frame.  
-$\hspace{1cm}$ allowed values: ANSI colour codes `0`, `40 to 47`, and `100 to 107`  
-$\hspace{1cm}$ default value = `0`.  
-[alignment](#alignment): set the alignment of the text inside the frame.  
-$\hspace{1cm}$ allowed values: ```'left'```, ```'centre'```, ```'center'```, ```'right'```  
-$\hspace{1cm}$ default value = ```'left'```  
-[display](#display): set the position of the frame inside the terminal.  
-$\hspace{1cm}$ allowed values: ```'left'```, ```'centre'```, ```'center'```, ```'right'```  
-$\hspace{1cm}$ default value = ```'left'```  
-[spacing](#spacing): set the space between the frame and the text.  
-$\hspace{1cm}$ allowed values: from `0 to 3`  
-$\hspace{1cm}$ default value = `1`  
-[min_width](#minimum-width): set the min length of text in a line.  
-$\hspace{1cm}$ allowed values: integers above `8`, ```'max'```(this value assign to the frame the width of the terminal)  
-$\hspace{1cm}$ default value = `42`  
-[max_width](#maximum-width): set the max length of text in a line.  
-$\hspace{1cm}$ allowed values: integers above `8`, ```'max'```(this value assign to the frame the width of the terminal)  
-$\hspace{1cm}$ default value = `70`  
-[window](#input): Set the behaviour of the function, to output or input.  
-$\hspace{1cm}$ allowed values: ```'print'```, ```'input'```  
-$\hspace{1cm}$ default value = ```'print'```  
+* [colour](#text-and-frame-colours): set the text colour.  
+  * allowed values: ANSI colour codes `0`, `30 to 37`, and `90 to 97`  
+  * default value = `37`.  
+* [text_background](#text-and-frame-colours): set the background colour of the text.  
+  * allowed values: ANSI colour codes `0`, `40 to 47`, and `100 to 107`  
+  * default value = `0`.  
+* [frame_colour](#text-and-frame-colours): set the frame colour.  
+  * allowed values: ANSI colour codes `0`, `30 to 37`, and `90 to 97`  
+  * default value = `37`.  
+* [frame_background](#text-and-frame-colours): set the background colour of the frame.  
+  * allowed values: ANSI colour codes `0`, `40 to 47`, and `100 to 107`  
+  * default value = `0`.  
+* [alignment](#alignment): set the alignment of the text inside the frame.  
+  * allowed values: ```'left'```, ```'centre'```, ```'center'```, ```'right'```  
+  * default value = ```'left'```  
+* [display](#display): set the position of the frame inside the terminal.  
+  * allowed values: ```'left'```, ```'centre'```, ```'center'```, ```'right'```  
+  * default value = ```'left'```  
+* [spacing](#spacing): set the space between the frame and the text.  
+  * allowed values: from `0 to 3`  
+  * default value = `1`  
+* [min_width](#minimum-width): set the min length of text in a line.  
+  * allowed values: integers above `8`, ```'max'```(this value assign to the frame the width of the terminal)  
+  * default value = `42`  
+* [max_width](#maximum-width): set the max length of text in a line.  
+  * allowed values: integers above `8`, ```'max'```(this value assign to the frame the width of the terminal)  
+  * default value = `70`  
+* [window](#input): Set the behaviour of the function, to output or input.  
+  * allowed values: ```'print'```, ```'input'```  
+  * default value = ```'print'```  
 
 ### Examples
 
