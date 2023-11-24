@@ -13,7 +13,7 @@
 
 ## Description
 
-**Borders** creates a frame around the content of a list, where any item of the list is considered a new line.  
+**Borders** creates a frame around the content of a list, where any item of the list is considered a new line.
 
 ## Features
 
@@ -49,7 +49,7 @@
 
 ### Prerequisites
 
-This script relies on the Python standard library and requires ```textlinebreaker``` library
+This script relies on the Python standard library and```textlinebreaker```library, if your system is ```Windows``` in addition will require```colorama```.
 
 ### Installation
 

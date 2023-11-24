@@ -1,7 +1,7 @@
 [project]
 name = "borders"
 version = "1.1.2"
-dependencies = ["textlinebreaker","colorama"]
+dependencies = ["textlinebreaker >= 0.1.0 ","colorama"]
 requires-python = ">=3.9"
 authors = [
     { name="scalvaruso", email="calvaruso.simone@gmail.com" },
@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/scalvaruso/borders"
+Homepage = "https://pypi.org/project/borders/"
 Repository = "https://github.com/scalvaruso/borders"
 
 [build-system]
