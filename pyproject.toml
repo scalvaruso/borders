@@ -1,6 +1,6 @@
 [project]
 name = "borders"
-version = "1.1.2"
+version = "1.1.2.post1"
 dependencies = ["textlinebreaker >= 0.1.0 ","colorama"]
 requires-python = ">=3.9"
 authors = [

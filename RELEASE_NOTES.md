@@ -1,4 +1,7 @@
-#
+# Release Notes - Version 1.1.2.post
+
+- Fixed indentation issue in README.md.
+- In the files requirements.txt and pyproject.toml specified dependencies version to be used.
 
 ## Release Notes - Version 1.1.2
 
