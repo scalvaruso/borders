@@ -1,7 +1,7 @@
 [project]
 name = "borders"
-version = "1.1.2.post1"
-dependencies = ["textlinebreaker >= 0.1.0 ","colorama"]
+version = "1.2.0"
+dependencies = ["polychromy >= 1.0.1 ","textlinebreaker >= 0.1.0 ","colorama"]
 requires-python = ">=3.9"
 authors = [
     { name="scalvaruso", email="calvaruso.simone@gmail.com" },
