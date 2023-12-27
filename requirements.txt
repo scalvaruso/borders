@@ -1,2 +1,3 @@
+polychromy>=1.0.1
 textlinebreaker>=0.1.0
 colorama==0.4.6
