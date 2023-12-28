@@ -3,7 +3,7 @@ from textlinebreaker import split_line
 from polychromy import colorate
 
 
-def main():
+def _demo():
 
     menu_1 = [
         ("This is border.py","Bright White","Bright Black","centre"),
@@ -79,6 +79,7 @@ def main():
     frame(menu_2, text_background=0, frame_colour="Blue", frame_background=0, min_width=75, display="centre", spacing=1)
 
 
+# Importable function.
 def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_background=None, frame_style="double", alignment="left", display="left", spacing=1, min_width=42, max_width=70, window="print"):
     """
     This function create a frame around the content of a list.
@@ -142,10 +143,8 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
     Returns:
         Print a frame around the output or the input prompt.
     """
-    # Check validity of the colors.
-        
+    # Set generic colors for the frame and text elements.
     color = colour
-    # text_background = text_background
     
     if frame_colour:
         frame_color = frame_colour
@@ -153,7 +152,7 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
         frame_color = color
 
     if frame_background:
-        pass # frame_background = frame_background
+        pass
     else:
         frame_background = text_background
 
@@ -167,7 +166,6 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
     line_alignment = alignment
 
     # Check the menu spacing and width.
-
     if spacing < 0:
         spacing = 0
     elif spacing > 3:
@@ -207,24 +205,21 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
     if max_length > max_width:
         max_length = max_width
 
-    # Check the lenght of every line and split them if too long.
-
-    # Modified function to split the lines
-    # the function split_line is now a stand alone library 
+    # Modify input text to fit in the frame.
     new_list = []
 
     for item in menu_list:
         
-        # Check if item is a tuple, and get values for foreground, and background colors (t_color, t_background)
+        # Check if item is a tuple, and get values for foreground, background colors, and alignment (t_color, t_background, line_alignment).
         if isinstance(item, tuple):
             parameters = len(item)
             
             """
             If True:
             item[0] is the string.
-            item[1] is the color of the text.
-            item[2] is the backgroud color of the text.
-            item[3] is the line alignment.
+            item[1] can be the color of the text or line alignment.
+            item[2] is optional and could be the backgroud color or line alignment.
+            item[3] is optional and is the line alignment.
             """
             
             if item[0] != "":
@@ -233,6 +228,7 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
                 words = item[0]
 
             if parameters == 2:
+                # Check if first item after string is the text color or the alignment.
                 if str(item[1]).lower() in ("left","center","centre","right"):
                     line_alignment = item[1]
                 else:
@@ -240,15 +236,19 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
                         t_color = item[1]
                     else:
                         t_color = color
+                    t_background = text_background
                     line_alignment = alignment
 
             elif parameters == 3:
+                # Get text color from item[1].
                 if item[1] != "":
                     t_color = item[1]
                 else:
                     t_color = color
+                # Check if second item after string is the background color or the alignment.
                 if str(item[2]).lower() in ("left","center","centre","right"):
                     line_alignment = item[2]
+                    t_background = text_background
                 else:
                     if item[2] != "":
                         t_background = item[2]
@@ -257,20 +257,23 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
                     line_alignment = alignment
 
             else:
+                # Get text color from item[1].
                 if item[1] != "":
                     t_color = item[1]
                 else:
                     t_color = color
+                # Get background color from item[2].
                 if item[2] != "":
                     t_background = item[2]
                 else:
                     t_background = text_background
+                # Get alignment from item[3].
                 if str(item[3]).lower() in ("left","center","centre","right"):
                     line_alignment = item[3]
                 else:
                     line_alignment = alignment
             
-        # If item is not a tuple, default colors are assigned.
+        # If item is not a tuple, default colors are assigned to the lines.
         else:
             if item != "":
                 words = item.split(" ")
@@ -355,4 +358,4 @@ def _elements(style):
 
 
 if __name__ == "__main__":
-    main()
+    _demo()
