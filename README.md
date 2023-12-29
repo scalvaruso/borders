@@ -204,7 +204,7 @@ styles = ["single", "double", "double horizontal", "double vertical", "dots", No
 
 for s in styles:
     # Print out the name of the style in a frame of that style.
-    frame([f"{s}"], frame_colour="Red", frame_background="Gainsboro", alignment="centre", frame_style=s)
+    frame(f"{s}", frame_colour="Red", frame_background="Gainsboro", alignment="centre", frame_style=s)
 ```
 
 ##### Output 4
