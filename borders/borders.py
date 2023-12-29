@@ -192,14 +192,19 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
     
     # Check length of lines
     max_length = min_width
-    for item in menu_list:
-        if isinstance(item, tuple):
-            new_length = len(item[0])
-        else:
-            new_length = len(item)
-        
+    if isinstance(menu_list, list):
+        for item in menu_list:
+            if isinstance(item, tuple):
+                new_length = len(item[0])
+            else:
+                new_length = len(item)
+            
+            if new_length > max_length:
+                max_length = new_length
+    else:
+        new_length = len(menu_list)
         if new_length > max_length:
-            max_length = new_length
+                max_length = new_length
 
     # Check if lines are longer than "max_width"
     if max_length > max_width:
@@ -208,88 +213,24 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
     # Modify input text to fit in the frame.
     new_list = []
 
-    for item in menu_list:
-        
-        # Check if item is a tuple, and get values for foreground, background colors, and alignment (t_color, t_background, line_alignment).
-        if isinstance(item, tuple):
-            parameters = len(item)
+    if isinstance(menu_list, list):
+
+        for item in menu_list:
             
-            """
-            If True:
-            item[0] is the string.
-            item[1] can be the color of the text or line alignment.
-            item[2] is optional and could be the backgroud color or line alignment.
-            item[3] is optional and is the line alignment.
-            """
-            
-            if item[0] != "":
-                words = item[0].split(" ")
-            else:
-                words = item[0]
+            words, t_color, t_background, line_alignment = _get_settings(item, color, text_background, alignment)
 
-            if parameters == 2:
-                # Check if first item after string is the text color or the alignment.
-                if str(item[1]).lower() in ("left","center","centre","right"):
-                    line_alignment = item[1]
-                else:
-                    if item[1] != "":
-                        t_color = item[1]
-                    else:
-                        t_color = color
-                    t_background = text_background
-                    line_alignment = alignment
-
-            elif parameters == 3:
-                # Get text color from item[1].
-                if item[1] != "":
-                    t_color = item[1]
-                else:
-                    t_color = color
-                # Check if second item after string is the background color or the alignment.
-                if str(item[2]).lower() in ("left","center","centre","right"):
-                    line_alignment = item[2]
-                    t_background = text_background
-                else:
-                    if item[2] != "":
-                        t_background = item[2]
-                    else:
-                        t_background = text_background
-                    line_alignment = alignment
-
-            else:
-                # Get text color from item[1].
-                if item[1] != "":
-                    t_color = item[1]
-                else:
-                    t_color = color
-                # Get background color from item[2].
-                if item[2] != "":
-                    t_background = item[2]
-                else:
-                    t_background = text_background
-                # Get alignment from item[3].
-                if str(item[3]).lower() in ("left","center","centre","right"):
-                    line_alignment = item[3]
-                else:
-                    line_alignment = alignment
-            
-        # If item is not a tuple, default colors are assigned to the lines.
-        else:
-            if item != "":
-                words = item.split(" ")
-            else:
-                words = item
-            #words = item.split(" ")
-            t_color = color
-            t_background = text_background
-            line_alignment = alignment
-
-        # The function split_line is applied to every element in "menu_list"
-        for line in split_line(words, max_length, line_alignment):
+            # The function split_line is applied to every element in "menu_list"
+            for line in split_line(words, max_length, line_alignment):
+                # Then the colors attributes for foreground, and background are applied
+                new_list.append((line,t_color,t_background))
+    
+    else:
+        # The function split_line is applied directly to "menu_list"
+        for line in split_line(menu_list, max_length, line_alignment):
             # Then the colors attributes for foreground, and background are applied
             new_list.append((line,t_color,t_background))
 
-    # Create the frame.
+    # Create the frame. <--Continue from this point-->
     max_width = max([(len(i[0])) for i in new_list])
 
     if max_width > (menu_width-(border_space*2)):
@@ -355,6 +296,87 @@ def _elements(style):
 
     else:
         return (6 * " ")    # tl_corner, h_line, tr_corner, v_line, bl_corner, br_corner
+
+
+# This function return list of words of the given string and their color and alignment.
+def _get_settings(item, color, text_background, alignment):
+
+    # Check if item is a tuple, and get values for foreground, background colors, and alignment (t_color, t_background, line_alignment).
+    if isinstance(item, tuple):
+        parameters = len(item)
+        
+        """
+        If True:
+        item[0] is the string.
+        item[1] can be the color of the text or line alignment.
+        item[2] is optional and could be the backgroud color or line alignment.
+        item[3] is optional and is the line alignment.
+        """
+        
+        if item[0] != "":
+            words = item[0].split(" ")
+        else:
+            words = item[0]
+
+        if parameters == 2:
+            # Check if first item after string is the text color or the alignment.
+            if str(item[1]).lower() in ("left","center","centre","right"):
+                line_alignment = item[1]
+                t_color = color
+            else:
+                if item[1] != "":
+                    t_color = item[1]
+                else:
+                    t_color = color
+                line_alignment = alignment
+            t_background = text_background
+
+        elif parameters == 3:
+            # Get text color from item[1].
+            if item[1] != "":
+                t_color = item[1]
+            else:
+                t_color = color
+            # Check if second item after string is the background color or the alignment.
+            if str(item[2]).lower() in ("left","center","centre","right"):
+                line_alignment = item[2]
+                t_background = text_background
+            else:
+                if item[2] != "":
+                    t_background = item[2]
+                else:
+                    t_background = text_background
+                line_alignment = alignment
+
+        else:
+            # Get text color from item[1].
+            if item[1] != "":
+                t_color = item[1]
+            else:
+                t_color = color
+            # Get background color from item[2].
+            if item[2] != "":
+                t_background = item[2]
+            else:
+                t_background = text_background
+            # Get alignment from item[3].
+            if str(item[3]).lower() in ("left","center","centre","right"):
+                line_alignment = item[3]
+            else:
+                line_alignment = alignment
+        
+    # If item is not a tuple, default colors are assigned to the lines.
+    else:
+        if item != "":
+            words = item.split(" ")
+        else:
+            words = item
+
+        t_color = color
+        t_background = text_background
+        line_alignment = alignment
+
+    return words, t_color, t_background, line_alignment
 
 
 if __name__ == "__main__":
