@@ -13,17 +13,19 @@
 
 ## Description
 
-[![PyPI - Version](https://img.shields.io/pypi/v/borders?label=Borders&labelColor=white&color=white&style=flat-square)](#borders) is an updated version of **borders**: it enhances the functionality of creating frames around text output adding new features, and improving existing ones. Borders creates a frame around the content of a list, where any item of the list is considered a new line.
+[![PyPI - Version](https://img.shields.io/pypi/v/borders?label=Borders&labelColor=white&color=white&style=flat-square)](#borders) is an updated version of **borders**: it enhances the functionality of creating frames around text output adding new features, and improving existing ones. Borders creates a frame around a string or a list of strings where any item is considered a new line.
 
 ## Features
 
-* **Colour Support:** Expanded colour options now accept ANSI colour codes `0, 30 to 37, and 90 to 97` for setting text and frame colours.
-* **Input Functionality:** Provides an option to use the `frame()` function in place of `input()` to create a framed prompt for user input.
+* [Input Functionality](#input): Provides an option to use the `frame()` function in place of `input()` to create a framed prompt for user input.
+* [Spacing Control](#alignment): Customisable alignment for the frame and the text within the frame.
+* [Width Customization](#minimum-width):** Customisable width of frame and text lines.
 
-## Latest Version 1.1.2
+## Latest Version 1.2.0
 
-* **Enhanced Spacing Control:** Added alignment control for the frame and the text within the frame.
-* **Improved Width Customization:** Better control over minimum and maximum width of the frame and text lines.
+* **Now supporting single string input.**
+* [Colour Support](#text-and-frame-colours): Expanded colour options now accept most color names, ***sRGB*** values **[0-255];[0-255];[0-255]**, ***Hex*** values **#[00-FF][00-FF][00-FF]**, ***xterm*** color number in the format **x[0-255]**, and ***ANSI codes* 0, [40-47], [100-107]**.
+* [Frame styles](#frame-style): Six different frame styles now available.
 
 ## Table of Contents
 
@@ -49,7 +51,7 @@
 
 ### Prerequisites
 
-This script relies on the Python standard library and```textlinebreaker```library, if your system is ```Windows``` in addition will require```colorama```.
+Borders relies on the Python standard library, [textlinebreaker](https://pypi.org/project/textlinebreaker/) and [polychromy](https://pypi.org/project/polychromy/) libraries, and if your system is ```Windows``` in addition it might require```colorama``` to fix color compatibility.
 
 ### Installation
 
@@ -93,17 +95,20 @@ The text to be printed can be a mixed list of:
 ### Parameters
 
 * [colour](#text-and-frame-colours): set the text colour.  
-  * allowed values: ANSI colour codes `0`, `30 to 37`, and `90 to 97`  
+  * allowed values: most color names, RGB values [0-255];[0-255];[0-255], Hex values #[00-FF][00-FF][00-FF], xterm color number in the format x[0-255], and ANSI codes 0, [30-37], [90-97].
   * default value = `37`.  
 * [text_background](#text-and-frame-colours): set the background colour of the text.  
-  * allowed values: ANSI colour codes `0`, `40 to 47`, and `100 to 107`  
+  * allowed values: most color names, RGB values [0-255];[0-255];[0-255], Hex values #[00-FF][00-FF][00-FF], xterm color number in the format x[0-255], and ANSI codes 0, [40-47], [100-107].
   * default value = `0`.  
 * [frame_colour](#text-and-frame-colours): set the frame colour.  
-  * allowed values: ANSI colour codes `0`, `30 to 37`, and `90 to 97`  
+  * allowed values: most color names, RGB values [0-255];[0-255];[0-255], Hex values #[00-FF][00-FF][00-FF], xterm color number in the format x[0-255], and ANSI codes 0, [30-37], [90-97].
   * default value = `37`.  
 * [frame_background](#text-and-frame-colours): set the background colour of the frame.  
-  * allowed values: ANSI colour codes `0`, `40 to 47`, and `100 to 107`  
+  * allowed values: most color names, RGB values [0-255];[0-255];[0-255], Hex values #[00-FF][00-FF][00-FF], xterm color number in the format x[0-255], and ANSI codes 0, [40-47], [100-107].
   * default value = `0`.  
+* [frame_style](#frame-style): allows to change the style of the frame
+  * allowed values: ```'single'```, ```'double'```, ```'double horizontal'```, ```'double vertical'```, ```'dots'```, ```None```  
+  * default value = ```'double'```  
 * [alignment](#alignment): set the alignment of the text inside the frame.  
   * allowed values: ```'left'```, ```'centre'```, ```'center'```, ```'right'```  
   * default value = ```'left'```  
@@ -172,14 +177,16 @@ from borders import frame
 
 # Example 3: Using tuple to set different colours for each line
 output = [
-    "Hello,",
-    "World!",
-    ("This line is yellow", 33),
-    ("This line is green", 32),
-    ("This line is highlighted in white", "", 47),
-    "This line is back to the general colour"
+    "This text's color is Blue (System Color)",
+    ("This text's color is Aquamarine", "Aquamarine"),
+    ("This text's color is Coral","255;127;80"),
+    ("This text's color is Cosmic Latte","#FFF8E7"),
+    ("This text is highlighted in Yellow", "", "x226"),
+    ("Frame's color is Red (System Color)", 31),
+    "This text's color is back to Blue (System Color)"
 ]
-frame(output, colour="34", frame_colour="31")
+
+frame(output, colour=34, frame_colour=31)
 ```
 
 ##### Output 3
@@ -187,6 +194,24 @@ frame(output, colour="34", frame_colour="31")
 ![example03](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example03.png)
 
 <!--- Example 04 --->
+#### Frame Style
+
+```python
+from borders import frame
+
+# Example 4: Setting a different styles for the frame
+styles = ["single", "double", "double horizontal", "double vertical", "dots", None]
+
+for s in styles:
+    # Print out the name of the style in a frame of that style.
+    frame([f"{s}"], frame_colour="Red", frame_background="Gainsboro", alignment="centre", frame_style=s)
+```
+
+##### Output 4
+
+![example04](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example04.png)
+
+<!--- Example 05 --->
 #### Alignment
 
 The parameter```alignment```allows you to change the alignment of the text inside the frame.  
@@ -195,18 +220,18 @@ With```alignment="right"```will allign the text to the right of the frame.
 ```python
 from borders import frame
 
-# Example 4: Setting lines width equal to 60,
+# Example 5: Setting lines width equal to 60,
 # the general alignment of the text to the right,
 # and the alignment of the second line to the left
 output = ["There are only 10 kinds of people in this world:", ("Those who know binary and Those who don't.","left"), "Anonymous"]
 frame(output, min_width=60, alignment="right")
 ```
 
-##### Output 4
+##### Output 5
 
-![example04](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example04.png)
+![example05](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example05.png)
 
-<!--- Example 05 --->
+<!--- Example 06 --->
 #### Display
 
 The parameter```display``` allows you to change the position of the frame inside the terminal.
@@ -214,21 +239,21 @@ The parameter```display``` allows you to change the position of the frame inside
 ```python
 from borders import frame
 
-# Example 5: Setting the position of the frame in the centre of the terminal
+# Example 6: Setting the position of the frame in the centre of the terminal
 # and the alignment of the text to the right 
 output = ["There are only 10 kinds of people in this world:", "Those who know binary and Those who don't.", "Anonymous"]
 frame(output, alignment="right", display="centre")
 ```
 
-##### Output 5
+##### Output 6
 
-![example05](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example05.png)
+![example06](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example06.png)
 
 #### Spacing
 
 Specifying different values for the parameter```spacing```, you can increase or decrease the space between text and frame.  
 
-<!--- Example 06 --->
+<!--- Example 07 --->
 ##### spacing=2
 
 With```spacing=2```it will leave **2** blank lines at the top and the bottom, and **8** blank spaces before and after the text.
@@ -236,26 +261,9 @@ With```spacing=2```it will leave **2** blank lines at the top and the bottom, an
 ```python
 from borders import frame  
 
-# Example 6: Setting the spacing between the text and the frame equal to 2
+# Example 7: Setting the spacing between the text and the frame equal to 2
 output = ["Hello,", "World!"]
 frame(output, spacing=2)
-```
-
-##### Output 6
-
-![example06](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example06.png)
-
-<!--- Example 07 --->
-##### Spacing = 0
-
-With```spacing=0```it will create the frame around the text with no spaces.
-
-```python
-from borders import frame  
-
-# Example 7: Setting the spacing between the text and the frame equal to 0
-output = ["Hello,", "World!"]
-frame(output, spacing=0)
 ```
 
 ##### Output 7
@@ -263,6 +271,23 @@ frame(output, spacing=0)
 ![example07](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example07.png)
 
 <!--- Example 08 --->
+##### Spacing = 0
+
+With```spacing=0```it will create the frame around the text with no spaces.
+
+```python
+from borders import frame  
+
+# Example 8: Setting the spacing between the text and the frame equal to 0
+output = ["Hello,", "World!"]
+frame(output, spacing=0)
+```
+
+##### Output 8
+
+![example08](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example08.png)
+
+<!--- Example 09 --->
 #### Minimum Width
 
 The parameter ```min_width``` set the minimum width inside the frame.  
@@ -271,44 +296,29 @@ With```min_width=30```the output frame will have a wider space on the left.
 ```python
 from borders import frame  
 
-# Example 8:
+# Example 9:
 output = ["Hello,", "World!"]
 frame(output, min_width=30)
 ```
 
-##### Output 8
+##### Output 9
 
-![example08](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example08.png)  
+![example09](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example09.png)  
 
 #### Maximum Width
 
 The parameter ```max_width``` set the max length of text on a line.  
 Let's see what happens to the following string: *"There are only 10 kinds of people in this world: Those who know binary and Those who don’t."*
 
-<!--- Example 09 --->
-##### max_width=100
-
-```python
-from borders import frame  
-
-# Example 9:
-output = ["There are only 10 kinds of people in this world: Those who know binary and Those who don't."]
-frame(output, max_width=100)
-```
-
-##### Output 9
-
-![example09](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example09.png)
-
 <!--- Example 10 --->
-##### max_width=50
+##### max_width=100
 
 ```python
 from borders import frame  
 
 # Example 10:
 output = ["There are only 10 kinds of people in this world: Those who know binary and Those who don't."]
-frame(output, max_width=50)
+frame(output, max_width=100)
 ```
 
 ##### Output 10
@@ -316,14 +326,14 @@ frame(output, max_width=50)
 ![example10](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example10.png)
 
 <!--- Example 11 --->
-##### max_width=25
+##### max_width=50
 
 ```python
-from borders import frame
+from borders import frame  
 
 # Example 11:
 output = ["There are only 10 kinds of people in this world: Those who know binary and Those who don't."]
-frame(output, max_width=25)
+frame(output, max_width=50)
 ```
 
 ##### Output 11
@@ -331,6 +341,21 @@ frame(output, max_width=25)
 ![example11](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example11.png)
 
 <!--- Example 12 --->
+##### max_width=25
+
+```python
+from borders import frame
+
+# Example 12:
+output = ["There are only 10 kinds of people in this world: Those who know binary and Those who don't."]
+frame(output, max_width=25)
+```
+
+##### Output 12
+
+![example12](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example12.png)
+
+<!--- Example 13 --->
 #### Input
 
 You can use the function ```frame()``` in place of ```input()``` to create a frame around the prompt and get the input from the user.
@@ -338,16 +363,16 @@ You can use the function ```frame()``` in place of ```input()``` to create a fra
 ```python
 from borders import frame
 
-# Example 12: Using frame() in place of input()
+# Example 13: Using frame() in place of input()
 num1 = int(frame(["Please,", "enter a number"], window="input"))
 num2 = num1 * 2
 output = [f"The double of {num1}",f"is {num2}"]
 frame(output)
 ```
 
-##### Output 12
+##### Output 13
 
-![example12](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example12.png)
+![example13](https://raw.githubusercontent.com/scalvaruso/borders/main/images/example13.png)
 
 ## Contributing
 

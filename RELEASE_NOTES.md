@@ -2,6 +2,7 @@
 
 ## Release Notes - Version 1.2.0
 
+- Added support for single string input.
 - Enhanced Color Control: Any color available can now be used for the text, the frame and their background colors.
 - Added new styles of frames.
 
