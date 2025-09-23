@@ -1,5 +1,6 @@
 import os
-from textlinebreaker import split_line
+# from textlinebreaker import split_line
+from textlinebreaker import TextLineBreaker
 from polychromy import colorate
 
 
@@ -220,13 +221,16 @@ def frame(menu_list, colour=37, text_background=0, frame_colour=None, frame_back
             words, t_color, t_background, line_alignment = _get_settings(item, color, text_background, alignment)
 
             # The function split_line is applied to every element in "menu_list"
-            for line in split_line(words, max_length, line_alignment):
+            # for line in split_line(words, max_length, line_alignment):
+            formatter = TextLineBreaker(words, max_length, line_alignment)
+            for line in list(formatter):
                 # Then the colors attributes for foreground, and background are applied
                 new_list.append((line,t_color,t_background))
-    
     else:
         # The function split_line is applied directly to "menu_list"
-        for line in split_line(menu_list, max_length, line_alignment):
+        #for line in split_line(menu_list, max_length, line_alignment):
+        formatter = TextLineBreaker(menu_list, max_length, line_alignment)
+        for line in list(formatter):
             # Then the colors attributes for foreground, and background are applied
             new_list.append((line,t_color,t_background))
 
@@ -313,10 +317,13 @@ def _get_settings(item, color, text_background, alignment):
         item[3] is optional and is the line alignment.
         """
         
+        """
         if item[0] != "":
             words = item[0].split(" ")
         else:
             words = item[0]
+        """
+        words = item[0]
 
         if parameters == 2:
             # Check if first item after string is the text color or the alignment.
@@ -367,11 +374,13 @@ def _get_settings(item, color, text_background, alignment):
         
     # If item is not a tuple, default colors are assigned to the lines.
     else:
+        """
         if item != "":
             words = item.split(" ")
         else:
             words = item
-
+        """
+        words = item
         t_color = color
         t_background = text_background
         line_alignment = alignment
