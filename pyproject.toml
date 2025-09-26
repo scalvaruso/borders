@@ -1,15 +1,32 @@
+[build-system]
+# Minimum versions ensure modern packaging features work
+requires = ["setuptools>=64", "setuptools-scm>=8", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "borders"
-version = "1.2.0"
-dependencies = ["polychromy >= 1.0.2 ","textlinebreaker >= 0.1.0 ","colorama"]
-requires-python = ">=3.9"
-authors = [
-    { name="scalvaruso", email="calvaruso.simone@gmail.com" },
-]
+
+# Version is now dynamic, setuptools_scm will infer it from Git tags
+dynamic = ["version"]
+
 description = "A module to create a frame when printing a list of strings, with control on the alignment of the text and frame. In addition can be configured to act as 'input()'."
+
 readme = "README.md"
-license = {text = "MIT License"}
-keywords = ["alignment", "break", "center", "centre", "color", "format", "frame", "highlight", "input", "left", "line", "output", "right", "split", "text"]
+license = { text = "MIT License" }
+
+authors = [
+    { name = "scalvaruso", email = "calvaruso.simone@gmail.com" },
+]
+
+requires-python = ">=3.9"
+dependencies = ["polychromy >= 1.1.0 ","textlinebreaker >= 0.2.0 ","colorama"]
+
+keywords = [
+    "alignment", "break", "center", "centre", "color",
+    "format", "frame", "highlight", "input", "left",
+    "line", "output", "right", "split", "text"
+]
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
@@ -22,7 +39,9 @@ classifiers = [
 [project.urls]
 Homepage = "https://pypi.org/project/borders/"
 Repository = "https://github.com/scalvaruso/borders"
+Issues = "https://github.com/scalvaruso/borders/issues"
 
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+[tool.setuptools_scm]
+# How version numbers are generated
+version_scheme = "post-release"
+local_scheme = "node-and-date"

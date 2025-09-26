@@ -4,5 +4,7 @@ setup(
     # Other setup configurations
 
     # Use find_packages and exclude the folder
-    packages=find_packages(exclude=['images', 'VE_borders']),
+    packages=find_packages(
+        exclude=['images', 'tests', 'VE_borders']
+    ),
 )
