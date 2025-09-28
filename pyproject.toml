@@ -15,11 +15,20 @@ readme = "README.md"
 license = { text = "MIT License" }
 
 authors = [
-    { name = "scalvaruso", email = "calvaruso.simone@gmail.com" },
+    { name = "scalvaruso", email = "calvaruso.simone@gmail.com" }
 ]
 
 requires-python = ">=3.9"
-dependencies = ["polychromy >= 1.1.0 ","textlinebreaker >= 0.2.0 ","colorama"]
+
+# Base dependencies
+dependencies = [
+    "polychromy>=1.1.1",
+    "textlinebreaker>=1.0.0"
+]
+
+# Optional dependencies (install only on Windows)
+[project.optional-dependencies]
+windows = ["colorama>=0.4.6"]
 
 keywords = [
     "alignment", "break", "center", "centre", "color",
@@ -33,7 +42,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+    "Operating System :: OS Independent"
 ]
 
 [project.urls]

@@ -13,7 +13,8 @@
 
 ## Description
 
-[![PyPI - Version](https://img.shields.io/pypi/v/borders?label=Borders&labelColor=white&color=white&style=flat-square)](#borders) is an updated version of **borders**: it enhances the functionality of creating frames around text output adding new features, and improving existing ones. Borders creates a frame around a string or a list of strings where any item is considered a new line.
+Borders enhances the functionality of creating frames around text output by integrating with the latest version of [textlinebreaker](https://pypi.org/project/textlinebreaker/).  
+As of version 1.3.0, Borders is fully compatible with **textlinebreaker v1.0.0**, using its `TextLineBreaker` class for more robust and efficient text wrapping.
 
 ## Features
 
@@ -21,16 +22,17 @@
 * [Spacing Control](#alignment): Customisable alignment for the frame and the text within the frame.
 * [Width Customization](#minimum-width):** Customisable width of frame and text lines.
 
-## Latest Version 1.2.0
+## Latest Version 1.3.0
 
-* **Now supporting single string input.**
-* [Colour Support](#text-and-frame-colours): Expanded colour options now accept most color names, ***sRGB*** values **[0-255];[0-255];[0-255]**, ***Hex*** values **#[00-FF][00-FF][00-FF]**, ***xterm*** color number in the format **x[0-255]**, and ***ANSI codes* 0, [40-47], [100-107]**.
-* [Frame styles](#frame-style): Six different frame styles now available.
+* **Updated dependency**: Borders now relies on `TextLineBreaker` (introduced in textlinebreaker v1.0.0) instead of the legacy `split_line()` function.
+* Improved stability and compatibility with future versions of textlinebreaker.
+* Maintains all features from previous versions: colour control, frame styles, spacing, alignment, width customization, and input functionality.
 
 ## Table of Contents
 
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
+  * [Compatibility](#compatibility)
   * [Installation](#installation)
 * [Usage](#usage)
   * [Parameters](#parameters)
@@ -49,9 +51,24 @@
 
 ## Getting Started
 
-### Prerequisites
+## Prerequisites
 
-Borders relies on the Python standard library, [textlinebreaker](https://pypi.org/project/textlinebreaker/) and [polychromy](https://pypi.org/project/polychromy/) libraries, and if your system is ```Windows``` in addition it might require```colorama``` to fix color compatibility.
+Borders requires:
+
+* Python standard library
+* [textlinebreaker ≥1.0.0](https://pypi.org/project/textlinebreaker/)
+* [polychromy ≥1.1.1](https://pypi.org/project/polychromy/)  
+* On Windows, you may also need [colorama](https://pypi.org/project/colorama/) for terminal colour compatibility.
+
+## Compatibility
+
+| Borders version | Compatible textlinebreaker version |
+|-----------------|------------------------------------|
+| ≥ 1.3.0         | ≥ 1.0.0 (uses `TextLineBreaker` class) |
+| ≤ 1.2.x         | < 1.0.0 (uses `split_line` function)   |
+
+If you upgrade **textlinebreaker** to version **1.0.0 or later**, you must also upgrade **borders** to **1.3.0 or later**.  
+If you stay on an older textlinebreaker (<1.0.0), continue using borders ≤1.2.x.
 
 ### Installation
 
