@@ -3,16 +3,15 @@ name: Release Package
 on:
   push:
     tags:
-      - "v*"   # matches v1.4.0, v1.4.0-beta, etc.
+      - "v*"   # matches v1.4.0, v1.4.0-beta, v1.4.0-test, etc.
+    branches:
+      - dev    # optional: test from dev branch
 
 permissions:
-  contents: write       # needed to push assets / create release
-  packages: write       # for publishing packages
+  contents: write
+  packages: write
 
 jobs:
-  # ---------------------------
-  # 1. Build the package
-  # ---------------------------
   build:
     runs-on: ubuntu-latest
     outputs:
@@ -30,22 +29,34 @@ jobs:
       - name: Install build tools
         run: |
           python -m pip install --upgrade pip
-          pip install build
+          pip install build setuptools wheel twine setuptools_scm
+
+      - name: Clean previous builds
+        run: rm -rf dist/ build *.egg-info
+
+      # ---------------------------
+      # Strip 'v' prefix from tag
+      # ---------------------------
+      - name: Set version from tag
+        id: set_version
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Version set to $VERSION"
 
       - name: Build package
-        run: python -m build --sdist --wheel
+        run: |
+          # Build with exact version from tag
+          python -m build --sdist --wheel
 
       - name: Set dist path output
         id: set-dist-path
         run: echo "dist-path=dist" >> $GITHUB_OUTPUT
 
-  # ---------------------------
-  # 2. Publish to TestPyPI (pre-releases)
-  # ---------------------------
   publish-testpypi:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+    if: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'test') }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -54,19 +65,15 @@ jobs:
         run: python -m pip install --upgrade pip twine
 
       - name: Upload to TestPyPI
-        run: |
-          python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+        run: python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
         env:
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
           TWINE_USERNAME: __token__
 
-  # ---------------------------
-  # 3. Publish to PyPI (main releases)
-  # ---------------------------
   publish-pypi:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ !(contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha')) }}
+    if: ${{ !(contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'test')) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -80,12 +87,10 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
           TWINE_USERNAME: __token__
 
-  # ---------------------------
-  # 4. Create GitHub Release
-  # ---------------------------
   create-gh-release:
     needs: build
     runs-on: ubuntu-latest
+    if: ${{ !(contains(github.ref_name, 'test')) }}  # skip real release for test tags
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -95,7 +100,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
-          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}
           allow_updates: false
           body: |
             🚀 Release ${{ github.ref_name }}
@@ -104,4 +109,4 @@ jobs:
             - Artifacts are attached below
           files: dist/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # PAT or default token
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
