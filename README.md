@@ -4,7 +4,7 @@
 [![GitHub Release](https://img.shields.io/github/v/release/scalvaruso/borders?include_prereleases&style=flat-square&logo=github&label=Release)](https://github.com/scalvaruso/borders)
 [![Downloads](https://img.shields.io/pepy/dt/borders?style=flat-square&logo=python&label=Downloads)](https://pepy.tech/project/borders)
 [![Python Version](https://img.shields.io/pypi/pyversions/borders?style=flat-square&logo=python&label=Python)](https://pypi.org/project/borders)
-[![License](https://img.shields.io/github/license/scalvaruso/borders?style=flat-square&label=License)](https://github.com/scalvaruso/borders/blob/main/LICENSE.md)
+[![License](https://img.shields.io/github/license/scalvaruso/borders?style=flat-square&label=License)](https://github.com/scalvaruso/borders/blob/main/LICENSE)
 
 ## Description
 
@@ -400,9 +400,9 @@ See the [LICENSE](https://github.com/scalvaruso/borders/blob/main/LICENSE) file 
 
 ### NOTICE
 
-Borders is developed and maintained by Simone Calvaruso.  
+**Borders** is developed and maintained by *Simone Calvaruso*.  
 It may include contributions from third-party libraries such as `textlinebreaker`, `polychromy`, and `colorama` (Windows only).  
 All third-party code is used in compliance with their respective licenses.
 
-This **NOTICE** is provided to ensure proper attribution and to comply with the requirements of the Apache License 2.0.  
-Any redistribution or derivative work of Borders must retain this **NOTICE**.
+This [**NOTICE**](https://github.com/scalvaruso/borders/blob/main/NOTICE) is provided to ensure proper attribution and to comply with the requirements of the **Apache License 2.0**.  
+Any redistribution or derivative work of Borders must retain this [**NOTICE**](https://github.com/scalvaruso/borders/blob/main/NOTICE).
