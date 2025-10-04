@@ -2,22 +2,23 @@ name: Release Package
 
 on:
   push:
+    branches:
+      - dev
+      - main
     tags:
-      - "v*"   # matches v1.4.0, v1.4.0-beta, etc.
+      - "v*"
 
 permissions:
-  contents: write       # needed to push assets / create release
-  packages: write       # for publishing packages
+  contents: write
+  packages: write
 
 jobs:
   # ---------------------------
-  # 1. Build the package
+  # 1. Build package
   # ---------------------------
   build:
     runs-on: ubuntu-latest
-    outputs:
-      dist-path: ${{ steps.set-dist-path.outputs.dist-path }}
-
+    if: startsWith(github.ref, 'refs/tags/')  # Only build for tags
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,46 +31,72 @@ jobs:
       - name: Install build tools
         run: |
           python -m pip install --upgrade pip
-          pip install build
+          pip install build setuptools wheel twine setuptools-scm
+
+      - name: Clean previous builds
+        run: rm -rf dist/ build/ *.egg-info
 
       - name: Build package
         run: python -m build --sdist --wheel
 
-      - name: Set dist path output
-        id: set-dist-path
-        run: echo "dist-path=dist" >> $GITHUB_OUTPUT
+      - name: Upload dist artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
 
   # ---------------------------
-  # 2. Publish to TestPyPI (pre-releases)
+  # 2. Publish to TestPyPI for tags on dev OR dev tags on main
   # ---------------------------
   publish-testpypi:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+    if: startsWith(github.ref, 'refs/tags/') && (startsWith(github.ref, 'refs/tags/') && github.ref_name && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name) && (github.ref_name != '' && github.ref_name)
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
 
       - name: Install twine
         run: python -m pip install --upgrade pip twine
 
       - name: Upload to TestPyPI
-        run: |
-          python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+        run: python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
         env:
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
           TWINE_USERNAME: __token__
 
   # ---------------------------
-  # 3. Publish to PyPI (main releases)
+  # 3. Publish to PyPI (stable tags on main)
   # ---------------------------
   publish-pypi:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ !(contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha')) }}
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, 'dev') && startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
 
       - name: Install twine
         run: python -m pip install --upgrade pip twine
@@ -81,27 +108,32 @@ jobs:
           TWINE_USERNAME: __token__
 
   # ---------------------------
-  # 4. Create GitHub Release
+  # 4. Create GitHub Release (stable tags on main)
   # ---------------------------
   create-gh-release:
-    needs: build
+    needs: [build, publish-pypi]
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, 'dev')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
-          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
-          allow_updates: false
           body: |
             🚀 Release ${{ github.ref_name }}
 
-            - Published automatically to TestPyPI/PyPI
-            - Artifacts are attached below
+            - Published to PyPI automatically.
+            - See attached build artifacts below.
           files: dist/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # PAT or default token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
