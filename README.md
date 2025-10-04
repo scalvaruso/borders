@@ -1,32 +1,28 @@
 # Borders
 
-[<img src="https://img.shields.io/badge/borders-py-blue?style=flat&logo=python&logoWidth=20.svg/"></a>](https://github.com/scalvaruso/borders/)
-[![PyPI - Version](https://img.shields.io/pypi/v/borders?logo=pypi&logoColor=white&color=blue)](https://pypi.org/project/borders/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/borders?logo=python)](https://pypi.org/project/borders/)
-[![Downloads](https://static.pepy.tech/badge/borders)](https://pepy.tech/project/borders)
-[![PyPI - License](https://img.shields.io/pypi/l/borders?color=blue)](https://github.com/scalvaruso/borders/blob/main/LICENSE.md)
-
-<!---
-[![PyPI - status](https://img.shields.io/pypi/status/:borders)](https://pypi.org/project/borders/)
-[![Documentation Status](https://readthedocs.org/projects/borders/badge/?version=latest)](https://borders.readthedocs.io/en/latest/?badge=latest)
--->
+[![PyPI Version](https://img.shields.io/pypi/v/borders?style=flat-square&logo=pypi&label=PyPI)](https://pypi.org/project/borders)
+[![GitHub Release](https://img.shields.io/github/v/release/scalvaruso/borders?include_prereleases&style=flat-square&logo=github&label=Release)](https://github.com/scalvaruso/borders)
+[![Downloads](https://img.shields.io/pepy/dt/borders?style=flat-square&logo=python&label=Downloads)](https://pepy.tech/project/borders)
+[![Python Version](https://img.shields.io/pypi/pyversions/borders?style=flat-square&logo=python&label=Python)](https://pypi.org/project/borders)
+[![License](https://img.shields.io/github/license/scalvaruso/borders?style=flat-square&label=License)](https://github.com/scalvaruso/borders/blob/main/LICENSE.md)
 
 ## Description
 
 Borders enhances the functionality of creating frames around text output by integrating with the latest version of [textlinebreaker](https://pypi.org/project/textlinebreaker/).  
-As of version 1.3.0, Borders is fully compatible with **textlinebreaker v1.0.0**, using its `TextLineBreaker` class for more robust and efficient text wrapping.
+As of version **1.4.0**, Borders remains fully compatible with **textlinebreaker ≥ 1.0.0**, using its `TextLineBreaker` class for robust and efficient text wrapping.
 
 ## Features
 
 * [Input Functionality](#input): Provides an option to use the `frame()` function in place of `input()` to create a framed prompt for user input.
 * [Spacing Control](#alignment): Customisable alignment for the frame and the text within the frame.
-* [Width Customization](#minimum-width):** Customisable width of frame and text lines.
+* [Width Customization](#minimum-width): Customisable width of frame and text lines.
 
-## Latest Version 1.3.0
+## Latest Version 1.4.0
 
-* **Updated dependency**: Borders now relies on `TextLineBreaker` (introduced in textlinebreaker v1.0.0) instead of the legacy `split_line()` function.
-* Improved stability and compatibility with future versions of textlinebreaker.
-* Maintains all features from previous versions: colour control, frame styles, spacing, alignment, width customization, and input functionality.
+* **License updated**: Borders is now distributed under the **Apache License 2.0**, aligning with modern scientific Python packages such as NumPy and Pandas.  
+  All versions prior to 1.4.0 remain available under the **MIT License**.
+* **No functional or API changes** in this release.
+* **Dependencies** unchanged – continues to rely on `TextLineBreaker` (from textlinebreaker ≥ 1.0.0) for improved stability and forward compatibility.
 
 ## Table of Contents
 
@@ -37,30 +33,22 @@ As of version 1.3.0, Borders is fully compatible with **textlinebreaker v1.0.0**
 * [Usage](#usage)
   * [Parameters](#parameters)
   * [Examples](#examples)
-    * [Default settings](#default-settings)
-    * [Text and Frame Colours](#text-and-frame-colours)
-    * [Tuples](#tuples)
-    * [Alignment](#alignment)
-    * [Display](#display)
-    * [Spacing](#spacing)
-    * [Minimum Width](#minimum-width)
-    * [Maximum Width](#maximum-width)
-    * [Input](#input)
 * [Contributing](#contributing)
 * [License](#license)
+  * [Notice](#notice)
 
 ## Getting Started
 
-## Prerequisites
+### Prerequisites
 
 Borders requires:
 
-* Python standard library
-* [textlinebreaker ≥1.0.0](https://pypi.org/project/textlinebreaker/)
-* [polychromy ≥1.1.1](https://pypi.org/project/polychromy/)  
+* Python standard library  
+* [textlinebreaker ≥ 1.0.0](https://pypi.org/project/textlinebreaker/)  
+* [polychromy ≥ 1.1.1](https://pypi.org/project/polychromy/)  
 * On Windows, you may also need [colorama](https://pypi.org/project/colorama/) for terminal colour compatibility.
 
-## Compatibility
+### Compatibility
 
 | Borders version | Compatible textlinebreaker version |
 |-----------------|------------------------------------|
@@ -68,7 +56,7 @@ Borders requires:
 | ≤ 1.2.x         | < 1.0.0 (uses `split_line` function)   |
 
 If you upgrade **textlinebreaker** to version **1.0.0 or later**, you must also upgrade **borders** to **1.3.0 or later**.  
-If you stay on an older textlinebreaker (<1.0.0), continue using borders ≤1.2.x.
+If you stay on an older textlinebreaker (< 1.0.0), continue using borders ≤ 1.2.x.
 
 ### Installation
 
@@ -87,7 +75,7 @@ If you stay on an older textlinebreaker (<1.0.0), continue using borders ≤1.2.
 * Import the package in your program
 
 ```python
-  from borders import frame
+    from borders import frame
 ```
 
 ## Usage
@@ -95,11 +83,11 @@ If you stay on an older textlinebreaker (<1.0.0), continue using borders ≤1.2.
 Add the following line in your code to import the module
 
 ```python
-from borders import frame
+    from borders import frame
 ```
 
-Simply use the function ```frame()``` instead of ```print()``` to print a frame around your output.  
-Alternatively set the parameter ```window = "input"``` to use ```frame()``` in place of ```input()```.
+Simply use the function `frame()` instead of `print()` to print a frame around your output.  
+Alternatively set the parameter `window = "input"` to use `frame()` in place of `input()`.
 
 The text to be printed can be a mixed list of:
 
@@ -404,4 +392,17 @@ If you'd like to contribute to this project, please follow these steps:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/scalvaruso/borders/blob/main/LICENSE.md) file for details.
+Starting from version **v1.4.0**, Borders is licensed under the **Apache License, Version 2.0**.
+All releases prior to v1.4.0 remain available under the **MIT License**.
+
+This change aligns Borders with major open-source scientific Python projects and provides clearer terms for reuse, contributions, and patents.
+See the [LICENSE](https://github.com/scalvaruso/borders/blob/main/LICENSE) file for full details.
+
+### NOTICE
+
+Borders is developed and maintained by Simone Calvaruso.  
+It may include contributions from third-party libraries such as `textlinebreaker`, `polychromy`, and `colorama` (Windows only).  
+All third-party code is used in compliance with their respective licenses.
+
+This **NOTICE** is provided to ensure proper attribution and to comply with the requirements of the Apache License 2.0.  
+Any redistribution or derivative work of Borders must retain this **NOTICE**.

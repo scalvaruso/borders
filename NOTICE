@@ -1,0 +1,19 @@
+Borders Python Library
+Copyright (c) 2025 Simone Calvaruso
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at:
+    http://www.apache.org/licenses/LICENSE-2.0
+
+This project may include contributions from third-party libraries, 
+which are subject to their respective licenses. For details, please 
+refer to the documentation of the individual dependencies, including:
+
+- textlinebreaker (>=1.0.0)
+- polychromy (>=1.1.1)
+- colorama (only on Windows for terminal color support)
+
+All third-party code is included and used in accordance with their 
+respective licenses. Any modifications or redistributions of Borders 
+must retain this NOTICE and comply with the Apache License 2.0 terms.

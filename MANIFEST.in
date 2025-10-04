@@ -1,0 +1,10 @@
+# Include essential files in the source distribution
+include README.md
+include LICENSE
+include NOTICE
+
+# Include all Python source files in the package
+recursive-include borders *.py
+
+# Include images if any
+recursive-include borders/images *

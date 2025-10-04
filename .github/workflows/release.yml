@@ -3,60 +3,100 @@ name: Release Package
 on:
   push:
     tags:
-      - "v*"   # matches v1.0.0, v1.0.1-beta, etc.
+      - "v*"   # matches v1.4.0, v1.4.0-beta, etc.
 
 permissions:
   contents: write       # needed to push assets / create release
   packages: write       # for publishing packages
 
 jobs:
-  build-and-publish:
+  # ---------------------------
+  # 1. Build the package
+  # ---------------------------
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      dist-path: ${{ steps.set-dist-path.outputs.dist-path }}
 
     steps:
-      # 1. Checkout the code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      # 3. Install build tools
       - name: Install build tools
         run: |
           python -m pip install --upgrade pip
-          pip install build twine
+          pip install build
 
-      # 4. Build the package
       - name: Build package
-        run: python -m build
+        run: python -m build --sdist --wheel
 
-      # 5. Conditional publish: TestPyPI for pre-releases
-      - name: Publish to TestPyPI
-        if: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
+      - name: Set dist path output
+        id: set-dist-path
+        run: echo "dist-path=dist" >> $GITHUB_OUTPUT
 
-      # 6. Conditional publish: PyPI for main releases
-      - name: Publish to PyPI
-        if: ${{ !(contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha')) }}
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
+  # ---------------------------
+  # 2. Publish to TestPyPI (pre-releases)
+  # ---------------------------
+  publish-testpypi:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # 7. Create GitHub Release
+      - name: Install twine
+        run: python -m pip install --upgrade pip twine
+
+      - name: Upload to TestPyPI
+        run: |
+          python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+        env:
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          TWINE_USERNAME: __token__
+
+  # ---------------------------
+  # 3. Publish to PyPI (main releases)
+  # ---------------------------
+  publish-pypi:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ !(contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha')) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install twine
+        run: python -m pip install --upgrade pip twine
+
+      - name: Upload to PyPI
+        run: python -m twine upload dist/*
+        env:
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          TWINE_USERNAME: __token__
+
+  # ---------------------------
+  # 4. Create GitHub Release
+  # ---------------------------
+  create-gh-release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
-          allow_updates: true
+          allow_updates: false
           body: |
             🚀 Release ${{ github.ref_name }}
 
@@ -64,4 +104,4 @@ jobs:
             - Artifacts are attached below
           files: dist/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # PAT if default token fails
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} # PAT or default token
